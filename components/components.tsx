@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormLabel } from "@/components/ui/form";
 import { useCreateCmd } from "@/stores/cmd";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const componentsList = [
   { id: "accordion", label: "Accordion" },
@@ -70,64 +70,69 @@ export default function Components() {
   });
 
   return (
-    <Card className="w-full border-none shadow-none bg-transparent">
-      <CardTitle className="text-xl font-bold mb-4 text-center">Select Components</CardTitle>
-      <CardContent>
-        <Form {...form}>
-          <form>
-            <FormField
-              control={form.control}
-              name="components"
-              render={({ field }) => {
-                const selected = field.value || [];
+    <div className="w-full max-w-[920px] mx-auto px-2">
+      <Card className="w-full shadow-sm p-0 border border-border/50 bg-card/50 backdrop-blur-sm">
+        <CardContent className="px-0">
+          <Form {...form}>
+            <form>
+              <FormField
+                control={form.control}
+                name="components"
+                render={({ field }) => {
+                  const selected = field.value || [];
 
-                const handleToggle = (
-                  checked: boolean,
-                  component: { id: string; label: string }
-                ) => {
-                  const updated = checked
-                    ? [...selected, component.id]
-                    : selected.filter((id) => id !== component.id);
+                  const handleToggle = (
+                    checked: boolean,
+                    component: { id: string; label: string }
+                  ) => {
+                    const updated = checked
+                      ? [...selected, component.id]
+                      : selected.filter((id) => id !== component.id);
 
-                  field.onChange(updated);
+                    field.onChange(updated);
 
-                  if (checked) {
-                    addComponent(component);
-                  } else {
-                    removeComponent(component.id);
-                  }
-                };
+                    if (checked) {
+                      addComponent(component);
+                    } else {
+                      removeComponent(component.id);
+                    }
+                  };
 
-                return (
-                  <FormControl>
-                    <ScrollArea className="max-h-56 rounded-md border p-2 bg-card">
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                        {componentsList.map((component) => (
-                          <div
-                            key={component.id}
-                            className="flex items-center space-x-2"
-                          >
-                            <Checkbox
-                              id={component.id}
-                              checked={selected.includes(component.id)}
-                              onCheckedChange={(checked) =>
-                                handleToggle(checked === true, component)
-                              }
-                            />
-                            <FormLabel htmlFor={component.id} className="text-base">
-                              {component.label}
-                            </FormLabel>
-                          </div>
-                        ))}
-                      </div>
-                    </ScrollArea>
-                  </FormControl>
-                );
-              }}
-            />
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+                  return (
+                    <FormControl>
+                      <ScrollArea className="w-full rounded-xl p-2 bg-background/60">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2">
+                          {componentsList.map((component) => (
+                            <div
+                              key={component.id}
+                              className="flex items-center space-x-2.5 p-1 rounded hover:bg-muted/50 transition-colors"
+                            >
+                              <Checkbox
+                                id={component.id}
+                                checked={selected.includes(component.id)}
+                                onCheckedChange={(checked) =>
+                                  handleToggle(checked === true, component)
+                                }
+                                className="shrink-0"
+                              />
+                              <FormLabel 
+                                htmlFor={component.id} 
+                                className="text-sm cursor-pointer flex-1 min-w-0"
+                              >
+                                {component.label}
+                              </FormLabel>
+                            </div>
+                          ))}
+                        </div>
+                      </ScrollArea>
+                    </FormControl>
+                  );
+                }}
+              />
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

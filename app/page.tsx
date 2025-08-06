@@ -1,19 +1,17 @@
 import Components from "@/components/components";
 import Code from "@/components/code";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 bg-background">
-      <Card className="w-full max-w-3xl shadow-lg border-2 border-border/60">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background">
+      <Card className="w-full shadow-none border-0 bg-transparent pt-10">
         <CardHeader>
-          <CardTitle className="text-4xl font-extrabold text-center">Shadcn QuickAdd</CardTitle>
-          <CardDescription className="text-center text-lg mt-2">
+          <CardTitle className="text-4xl font-bold text-center font-rubik">Shadcn QuickAdd</CardTitle>
+          <CardDescription className="text-center text-base">
             Select multiple shadcn/ui components and generate a single install command instantly.
           </CardDescription>
         </CardHeader>
-        <Separator className="my-4" />
         <CardContent className="flex flex-col gap-10">
           <Components />
           <Code />
