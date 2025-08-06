@@ -18,6 +18,7 @@ const installCommands = {
 export default function Code() {
   const packageName = usePackageCmd((state) => state.packageName);
   const setCurrentPackage = usePackageCmd((state) => state.setCurrentPackage);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [copiedText, copy] = useCopyToClipboard();
   const [showCopied, setShowCopied] = useState(false);
   const component = useCreateCmd((state) => state.component);
